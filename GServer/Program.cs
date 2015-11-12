@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Threading;
 using System.Collections.Generic;
+using System.Threading;
+using GServer.Sockets;
 
 namespace GServer
 {
@@ -27,6 +28,10 @@ namespace GServer
 
         static IEnumerator test()
         {
+            SocketListener sl = new SocketListener(new SocketSettings());
+            sl.StartListen();
+            //ServerSocket socket = new ServerSocket("127.0.0.1", 11000);
+            //socket.Start();
             int i = 1;
             Console.WriteLine("step "+ i++);
             yield return Call("call 1");
@@ -40,5 +45,10 @@ namespace GServer
             Console.WriteLine(message);
             return Interlocked.Increment(ref session);
         }
+    }
+    public class MyData
+    {
+        public int index { get; set; }
+        public string str { get; set; }
     }
 }
